@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+echo "Setting up Openbox autostart for Soulseek..."
+mkdir -p /config/.config/openbox
+
+cat << 'AUTOSTART' > /config/.config/openbox/autostart
+st &
+
+if ! pgrep -f "SoulseekQt" > /dev/null 2>&1; then
+    export QT_QPA_PLATFORM=xcb
+    /opt/soulseek/AppRun &
+fi
+AUTOSTART
+
+chown -R 1000:1000 /config/.config
+chmod +x /config/.config/openbox/autostart

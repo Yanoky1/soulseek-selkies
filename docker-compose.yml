@@ -1,0 +1,23 @@
+services:
+  soulseek-selkies:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: soulseek-selkies:latest
+    container_name: soulseek-selkies
+
+    ports:
+      - "8292:3001"
+
+    environment:
+      TITLE: "Soulseek"
+      PUID: "1000"
+      PGID: "1000"
+
+    volumes:
+      - ./config:/config
+      - /mnt/4TB/Media/Music/SoulSeekQT:/downloads
+      - /mnt/4TB/Media/Music/organize:/shared
+
+    shm_size: 1gb
+    restart: unless-stopped

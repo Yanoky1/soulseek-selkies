@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+
+if [ ! -f "/opt/soulseek/AppRun" ]; then
+    echo "ERROR: Soulseek AppRun not found!"
+    exit 1
+fi
+
+if pgrep -f "SoulseekQt" > /dev/null 2>&1; then
+    echo "Soulseek already running, skipping..."
+    exit 0
+fi
+
+export QT_QPA_PLATFORM=xcb
+echo "Launching Soulseek..."
+/opt/soulseek/AppRun &
